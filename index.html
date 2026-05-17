@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PayXRPL</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <style>
+        body { font-family: system-ui, -apple-system, sans-serif; }
+        .qr-container { background: white; padding: 20px; border-radius: 20px; }
+    </style>
+</head>
+<body class="bg-zinc-950 text-white min-h-screen">
+    <div class="max-w-2xl mx-auto p-6">
+        <div class="flex justify-between items-center mb-8">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-emerald-500 rounded-2xl flex items-center justify-center text-3xl">⚡</div>
+                <h1 class="text-4xl font-bold tracking-tighter">PayXRPL</h1>
+            </div>
+            
+            <div class="flex gap-1 bg-zinc-900 rounded-3xl p-1">
+                <button onclick="switchLanguage('de')" id="btn-de" class="px-4 py-1.5 rounded-3xl text-sm font-medium transition">🇩🇪 DE</button>
+                <button onclick="switchLanguage('en')" id="btn-en" class="px-4 py-1.5 rounded-3xl text-sm font-medium transition bg-emerald-600">🇬🇧 EN</button>
+                <button onclick="switchLanguage('fr')" id="btn-fr" class="px-4 py-1.5 rounded-3xl text-sm font-medium transition">🇫🇷 FR</button>
+                <button onclick="switchLanguage('es')" id="btn-es" class="px-4 py-1.5 rounded-3xl text-sm font-medium transition">🇪🇸 ES</button>
+            </div>
+        </div>
+
+        <div class="bg-zinc-900 rounded-3xl p-8">
+            <h2 id="title" class="text-2xl font-semibold mb-6">Create Invoice</h2>
+            
+            <div class="space-y-6">
+                <div>
+                    <label id="label-receiver" class="block text-zinc-400 text-sm mb-2">Recipient Wallet Address</label>
+                    <input id="receiver" type="text" placeholder="Your XRPL wallet address here..." 
+                           class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-5 py-4 font-mono text-sm focus:outline-none focus:border-emerald-500">
+                </div>
+
+                <div class="flex gap-3 items-end">
+                    <div class="flex-1">
+                        <label id="label-amount" class="block text-zinc-400 text-sm mb-2">Amount in XRP</label>
+                        <input id="amount" type="number" step="0.000001" 
+                               class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-5 py-4 text-4xl focus:outline-none focus:border-emerald-500">
+                    </div>
+                    <button onclick="addTip()" 
+                            class="bg-amber-500 hover:bg-amber-600 text-black font-semibold px-7 py-4 rounded-3xl text-sm flex items-center gap-2 whitespace-nowrap">
+                        💰 Tipp 0.589 XRP
+                    </button>
+                </div>
+
+                <div>
+                    <label id="label-description" class="block text-zinc-400 text-sm mb-2">Description</label>
+                    <input id="description" type="text" value="Payment with PayXRPL" 
+                           class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-5 py-4 focus:outline-none focus:border-emerald-500">
+                </div>
+
+                <div>
+                    <label id="label-memo" class="block text-zinc-400 text-sm mb-2">Memo (optional)</label>
+                    <input id="memo" type="text" placeholder="e.g. Invoice #123" 
+                           class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-5 py-4 focus:outline-none focus:border-emerald-500">
+                </div>
+
+                <button onclick="generateQR()" id="btn-generate"
+                        class="w-full bg-emerald-500 hover:bg-emerald-600 text-black font-semibold text-xl py-6 rounded-3xl">
+                    Create Invoice + Xaman QR Code
+                </button>
+            </div>
+        </div>
+
+        <div id="result" class="hidden bg-zinc-900 rounded-3xl p-8 mt-8">
+            <h3 id="result-title" class="text-xl font-medium mb-4">Your Payment Request</h3>
+            <div id="invoiceCard" class="bg-white text-zinc-900 rounded-3xl p-6 mb-8"></div>
+
+            <div class="flex justify-center mb-8">
+                <div id="qrcode" class="qr-container"></div>
+            </div>
+
+            <div class="flex flex-col gap-3">
+                <button onclick="copyPaymentLink()" 
+                        class="w-full border border-emerald-500 text-emerald-400 hover:bg-emerald-950 py-5 rounded-3xl text-lg font-medium">
+                    📋 Copy Payment Link
+                </button>
+                <button onclick="copyBlob()" 
+                        class="w-full border border-zinc-700 hover:bg-zinc-800 py-5 rounded-3xl text-lg font-medium">
+                    📋 Copy Blob (for Xaman Advanced)
+                </button>
+            </div>
+
+            <p id="scan-text" class="text-center text-emerald-400 text-lg font-medium mt-6">
+                Simply scan this QR code with Xaman!
+            </p>
+        </div>
+
+        <!-- xSTIK Badge -->
+        <div class="mt-16 flex items-center justify-center gap-4 text-zinc-400 hover:text-white transition">
+            <span class="text-sm">Powered by my</span>
+            <a href="https://xstik.art/" target="_blank" class="flex items-center gap-4 group">
+                <img src="xstik.png" alt="xSTIK x00428" class="w-20 h-20 rounded-full shadow-2xl object-cover ring-2 ring-emerald-500">
+                <div>
+                    <span class="text-emerald-400 font-semibold text-xl group-hover:underline">xSTIK</span>
+                    <p class="text-sm text-emerald-500">x00428</p>
+                </div>
+            </a>
+        </div>
+
+        <div class="text-center text-zinc-500 text-xs mt-12">
+            PayXRPL • Mainnet
+        </div>
+    </div>
+
+    <script>
+        let currentLang = "en";
+        let currentReceiver = "";
+        let currentAmount = 0;
+        let currentDescription = "";
+        let currentMemo = "";
+        const MY_ADDRESS = "rQEzNuJhkopWkEUctdnQNvfNS5rJ275Rkd";
+
+        const translations = {
+            de: { title: "Rechnung erstellen", labelReceiver: "Empfänger Wallet-Adresse", labelAmount: "Betrag in XRP", labelDescription: "Beschreibung", labelMemo: "Memo (optional)", btnGenerate: "Rechnung erstellen + Xaman-QR-Code", resultTitle: "Deine Zahlungsanfrage", scanText: "Scanne diesen QR-Code einfach mit Xaman!", placeholderReceiver: "Deine XRPL Wallet-Adresse hier..." },
+            en: { title: "Create Invoice", labelReceiver: "Recipient Wallet Address", labelAmount: "Amount in XRP", labelDescription: "Description", labelMemo: "Memo (optional)", btnGenerate: "Create Invoice + Xaman QR Code", resultTitle: "Your Payment Request", scanText: "Simply scan this QR code with Xaman!", placeholderReceiver: "Your XRPL wallet address here..." },
+            fr: { title: "Créer une facture", labelReceiver: "Adresse Wallet du destinataire", labelAmount: "Montant en XRP", labelDescription: "Description", labelMemo: "Mémo (optionnel)", btnGenerate: "Créer facture + QR Code Xaman", resultTitle: "Votre demande de paiement", scanText: "Scannez simplement ce QR code avec Xaman !", placeholderReceiver: "Votre adresse wallet XRPL ici..." },
+            es: { title: "Crear factura", labelReceiver: "Dirección Wallet del destinatario", labelAmount: "Importe en XRP", labelDescription: "Descripción", labelMemo: "Memo (opcional)", btnGenerate: "Crear factura + Código QR Xaman", resultTitle: "Su solicitud de pago", scanText: "¡Simplemente escanea este código QR con Xaman!", placeholderReceiver: "Tu dirección wallet XRPL aquí..." }
+        };
+
+        function switchLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem("language", lang);
+            document.getElementById("title").textContent = translations[lang].title;
+            document.getElementById("label-receiver").textContent = translations[lang].labelReceiver;
+            document.getElementById("label-amount").textContent = translations[lang].labelAmount;
+            document.getElementById("label-description").textContent = translations[lang].labelDescription;
+            document.getElementById("label-memo").textContent = translations[lang].labelMemo;
+            document.getElementById("btn-generate").textContent = translations[lang].btnGenerate;
+            document.getElementById("receiver").placeholder = translations[lang].placeholderReceiver;
+
+            document.querySelectorAll('#btn-de, #btn-en, #btn-fr, #btn-es').forEach(b => b.classList.toggle("bg-emerald-600", b.id === `btn-${lang}`));
+        }
+
+        function addTip() {
+            let current = parseFloat(document.getElementById("amount").value) || 0;
+            document.getElementById("amount").value = (current + 0.589).toFixed(3);
+            document.getElementById("receiver").value = MY_ADDRESS;
+        }
+
+        function generateQR() {
+            currentReceiver = document.getElementById("receiver").value.trim();
+            const val = document.getElementById("amount").value.replace(',', '.');
+            currentAmount = parseFloat(val);
+            currentDescription = document.getElementById("description").value || "Payment";
+            currentMemo = document.getElementById("memo").value || "";
+
+            if (!currentReceiver) {
+                alert(currentLang === "de" ? "Bitte eine Wallet-Adresse eingeben!" : "Please enter a wallet address!");
+                return;
+            }
+            if (!currentAmount || currentAmount <= 0) {
+                alert(currentLang === "de" ? "Bitte einen Betrag eingeben!" : "Please enter an amount!");
+                return;
+            }
+
+            let uri = `xrp:${currentReceiver}?amount=${currentAmount}`;
+            if (currentMemo) uri += `&m=${encodeURIComponent(currentMemo)}`;
+
+            const cardHTML = `
+                <div class="flex justify-between items-start">
+                    <div>
+                        <p class="text-5xl font-bold">${currentAmount} XRP</p>
+                        <p class="text-zinc-600 mt-2">${currentDescription}</p>
+                        ${currentMemo ? `<p class="text-xs mt-6 bg-emerald-100 text-emerald-800 inline-block px-4 py-2 rounded-2xl">${currentMemo}</p>` : ''}
+                    </div>
+                    <div class="text-right text-xs text-emerald-500 pt-2">MAINNET</div>
+                </div>
+            `;
+            document.getElementById("invoiceCard").innerHTML = cardHTML;
+
+            document.getElementById("qrcode").innerHTML = "";
+            new QRCode(document.getElementById("qrcode"), { text: uri, width: 300, height: 300 });
+
+            document.getElementById("result").classList.remove("hidden");
+        }
+
+        function copyPaymentLink() {
+            const base = "https://payxrpl.io/pay";
+            const params = new URLSearchParams({
+                receiver: currentReceiver,
+                amount: currentAmount,
+                description: currentDescription,
+                memo: currentMemo
+            });
+            const link = `${base}?${params.toString()}`;
+            navigator.clipboard.writeText(link).then(() => {
+                alert(currentLang === "de" ? "✅ Zahlungs-Link kopiert!" : "✅ Payment link copied!");
+            });
+        }
+
+        window.onload = () => {
+            tailwind.config = { content: ["*"] };
+            const savedLang = localStorage.getItem("language") || "en";
+            switchLanguage(savedLang);
+        };
+    </script>
+</body>
+</html>
