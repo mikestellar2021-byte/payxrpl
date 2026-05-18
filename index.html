@@ -66,8 +66,8 @@
                 </div>
 
                 <button onclick="generateQR()" id="btn-generate"
-                        class="w-full bg-emerald-500 hover:bg-emerald-600 text-black font-semibold text-xl py-6 rounded-3xl mt-2 flex items-center justify-center gap-2">
-                    <span id="generate-text">Create Invoice + Xaman QR Code</span>
+                        class="w-full bg-emerald-500 hover:bg-emerald-600 text-black font-semibold text-xl py-6 rounded-3xl mt-2">
+                    Create Invoice + Xaman QR Code
                 </button>
             </div>
         </div>
@@ -91,28 +91,28 @@
             </p>
         </div>
 
-        <!-- Footer -->
-        <div class="mt-16 flex flex-col items-center gap-3 text-zinc-400 text-sm">
-            <a href="https://xstik.art/" target="_blank" class="flex items-center gap-3 group">
+        <!-- Footer mit deinem Handle -->
+        <div class="mt-16 flex flex-col items-center gap-4 text-zinc-400">
+            <a href="https://xstik.art/" target="_blank" class="flex items-center gap-4 group">
                 <img src="xstik.png" alt="xSTIK x00428" class="w-20 h-20 rounded-full shadow-2xl object-cover ring-2 ring-emerald-500">
                 <div>
                     <span class="text-emerald-400 font-semibold text-xl group-hover:underline">xSTIK</span>
                     <p class="text-emerald-500">x00428</p>
                 </div>
             </a>
-            <p class="text-center">
-                Made with ⚡ by <a href="https://x.com/YOUR_X_HANDLE" target="_blank" class="text-emerald-400 hover:underline">@YOUR_X_HANDLE</a>
-            </p>
-            <p class="text-xs text-zinc-500">PayXRPL • Mainnet</p>
+            
+            <div class="text-center">
+                <p class="text-sm">Made with ⚡ by <a href="https://x.com/MikeStellar68" target="_blank" class="text-emerald-400 hover:underline">@MikeStellar68</a></p>
+                <p class="text-xs text-zinc-500 mt-1">PayXRPL • Mainnet</p>
+            </div>
         </div>
     </div>
 
     <script>
         let currentLang = "en";
         const MY_ADDRESS = "rQEzNuJhkopWkEUctdnQNvfNS5rJ275Rkd";
-        let isGenerating = false;
 
-        const translations = { /* ... gleiche Übersetzungen wie vorher ... */ 
+        const translations = {
             de: { title: "Rechnung erstellen", labelReceiver: "Empfänger Wallet-Adresse", labelAmount: "Betrag in XRP", labelDescription: "Beschreibung", labelMemo: "Memo (optional)", btnGenerate: "Rechnung erstellen + Xaman-QR-Code", resultTitle: "Deine Zahlungsanfrage", scanText: "Scanne diesen QR-Code einfach mit Xaman!", placeholderReceiver: "Deine XRPL Wallet-Adresse hier..." },
             en: { title: "Create Invoice", labelReceiver: "Recipient Wallet Address", labelAmount: "Amount in XRP", labelDescription: "Description", labelMemo: "Memo (optional)", btnGenerate: "Create Invoice + Xaman QR Code", resultTitle: "Your Payment Request", scanText: "Simply scan this QR code with Xaman!", placeholderReceiver: "Your XRPL wallet address here..." },
             fr: { title: "Créer une facture", labelReceiver: "Adresse Wallet du destinataire", labelAmount: "Montant en XRP", labelDescription: "Description", labelMemo: "Mémo (optionnel)", btnGenerate: "Créer facture + QR Code Xaman", resultTitle: "Votre demande de paiement", scanText: "Scannez simplement ce QR code avec Xaman !", placeholderReceiver: "Votre adresse wallet XRPL ici..." },
@@ -138,50 +138,56 @@
             document.getElementById("receiver").value = MY_ADDRESS;
         }
 
-        async function generateQR() {
-            if (isGenerating) return;
-            isGenerating = true;
-
-            const btn = document.getElementById("btn-generate");
-            const originalText = btn.innerHTML;
-            btn.innerHTML = `<span class="animate-spin inline-block w-5 h-5 border-2 border-black border-t-transparent rounded-full"></span> Generating...`;
-            btn.disabled = true;
-
-            // ... rest of the generateQR function (same as before) ...
-
+        function generateQR() {
             const receiver = document.getElementById("receiver").value.trim();
             const val = document.getElementById("amount").value.replace(',', '.');
             const amountXRP = parseFloat(val);
             const description = document.getElementById("description").value || "Payment";
             const memo = document.getElementById("memo").value || "";
 
-            if (!receiver || !amountXRP || amountXRP <= 0) {
-                alert(currentLang === "de" ? "Bitte Adresse und Betrag eingeben!" : "Please enter address and amount!");
-                btn.innerHTML = originalText;
-                btn.disabled = false;
-                isGenerating = false;
+            if (!receiver) {
+                alert(currentLang === "de" ? "Bitte eine Wallet-Adresse eingeben!" : "Please enter a wallet address!");
+                return;
+            }
+            if (!amountXRP || amountXRP <= 0) {
+                alert(currentLang === "de" ? "Bitte einen Betrag eingeben!" : "Please enter an amount!");
                 return;
             }
 
             let uri = `xrp:${receiver}?amount=${amountXRP}`;
             if (memo) uri += `&m=${encodeURIComponent(memo)}`;
 
-            // Invoice Card + QR
-            const cardHTML = `<div class="flex justify-between items-start"><div><p class="text-5xl font-bold">${amountXRP} XRP</p><p class="text-zinc-600 mt-2">${description}</p>${memo ? `<p class="text-xs mt-6 bg-emerald-100 text-emerald-800 inline-block px-4 py-2 rounded-2xl">${memo}</p>` : ''}</div><div class="text-right text-xs text-emerald-500 pt-2">MAINNET</div></div>`;
+            const cardHTML = `
+                <div class="flex justify-between items-start">
+                    <div>
+                        <p class="text-5xl font-bold">${amountXRP} XRP</p>
+                        <p class="text-zinc-600 mt-2">${description}</p>
+                        ${memo ? `<p class="text-xs mt-6 bg-emerald-100 text-emerald-800 inline-block px-4 py-2 rounded-2xl">${memo}</p>` : ''}
+                    </div>
+                    <div class="text-right text-xs text-emerald-500 pt-2">MAINNET</div>
+                </div>
+            `;
             document.getElementById("invoiceCard").innerHTML = cardHTML;
 
             document.getElementById("qrcode").innerHTML = "";
             new QRCode(document.getElementById("qrcode"), { text: uri, width: 300, height: 300 });
 
             document.getElementById("result").classList.remove("hidden");
-
-            // Reset button
-            btn.innerHTML = originalText;
-            btn.disabled = false;
-            isGenerating = false;
         }
 
-        function copyPaymentLink() { /* bleibt gleich */ }
+        function copyPaymentLink() {
+            const base = "https://payxrpl.io/pay";
+            const params = new URLSearchParams({
+                receiver: document.getElementById("receiver").value.trim(),
+                amount: document.getElementById("amount").value,
+                description: document.getElementById("description").value,
+                memo: document.getElementById("memo").value
+            });
+            const link = `${base}?${params.toString()}`;
+            navigator.clipboard.writeText(link).then(() => {
+                alert(currentLang === "de" ? "✅ Zahlungs-Link kopiert!" : "✅ Payment link copied!");
+            });
+        }
 
         window.onload = () => {
             tailwind.config = { content: ["*"] };
