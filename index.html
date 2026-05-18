@@ -136,19 +136,4 @@
 
         function addTip() {
             let current = parseFloat(document.getElementById("amount").value) || 0;
-            document.getElementById("amount").value = (current + 0.589).toFixed(3);
-            document.getElementById("receiver").value = MY_ADDRESS;
-        }
-
-        function generateQR() {
-            const receiver = document.getElementById("receiver").value.trim();
-            const val = document.getElementById("amount").value.replace(',', '.');
-            const amountXRP = parseFloat(val);
-            const description = document.getElementById("description").value || "Payment";
-            const memo = document.getElementById("memo").value || "";
-
-            if (!receiver) {
-                alert(currentLang === "de" ? "Bitte eine Wallet-Adresse eingeben!" : "Please enter a wallet address!");
-                return;
-            }
-            if (!amountXRP || amountXRP <= 0) {
+            document.getElementById("amount").value = (current + 0.589).toFixed
