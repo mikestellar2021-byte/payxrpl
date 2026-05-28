@@ -57,7 +57,7 @@
             Praktische Guides, Code-Beispiele und Tools für die Verbindung von XRPL mit DTCC und Ripple Prime (2026)
         </p>
 
-        <!-- 4 Karten -->
+        <!-- Guide Cards -->
         <div class="grid md:grid-cols-2 gap-6 mb-16">
             <div class="bg-zinc-900 rounded-3xl p-8 card-hover border border-zinc-800">
                 <div class="text-5xl mb-4">🚀</div>
@@ -89,7 +89,7 @@
         </div>
 
         <!-- Simulator -->
-        <div class="bg-zinc-900 rounded-3xl p-8 mb-16">
+        <div class="bg-zinc-900 rounded-3xl p-8">
             <h3 class="text-2xl font-semibold mb-8 flex items-center gap-3">
                 <span class="text-3xl">📊</span> <span id="sim-title">Collateral Rebalancer Simulator</span>
             </h3>
@@ -124,17 +124,16 @@
                 Simulation starten
             </button>
 
-            <!-- Ergebnis -->
             <div id="simResult" class="hidden mt-10 grid md:grid-cols-2 gap-6">
                 <div class="bg-zinc-800 rounded-3xl p-6">
-                    <p class="text-zinc-400" id="tradfi-label">TradFi (DTCC)</p>
+                    <p id="tradfi-label" class="text-zinc-400">TradFi (DTCC)</p>
                     <div class="h-4 bg-zinc-700 rounded-full mt-4">
                         <div id="tradfiBar" class="h-4 bg-amber-500 rounded-full progress-bar" style="width:100%"></div>
                     </div>
                     <p id="tradfiLocked" class="text-3xl font-bold mt-4">$150,000</p>
                 </div>
                 <div class="bg-emerald-900/30 border border-emerald-500 rounded-3xl p-6">
-                    <p class="text-emerald-400" id="xrpl-label">XRPL + DTCC Hybrid</p>
+                    <p id="xrpl-label" class="text-emerald-400">XRPL + DTCC Hybrid</p>
                     <div class="h-4 bg-zinc-700 rounded-full mt-4">
                         <div id="xrplBar" class="h-4 bg-emerald-500 rounded-full progress-bar" style="width:62%"></div>
                     </div>
@@ -144,11 +143,6 @@
             </div>
         </div>
 
-        <!-- Footer -->
-        <footer class="border-t border-zinc-800 pt-8 mt-20 text-center text-zinc-500 text-sm">
-            <p>Made with ⚡ by <a href="https://x.com/MikeStellar" target="_blank" class="text-emerald-400 hover:underline">@MikeStellar</a></p>
-            <p class="mt-1">PayXRPL • Mainnet • 2026</p>
-        </footer>
     </div>
 
     <script>
@@ -172,8 +166,7 @@
                 labelRlusd: "RLUSD Anteil (%)",
                 simButton: "Simulation starten",
                 tradfiLabel: "TradFi (DTCC)",
-                xrplLabel: "XRPL + DTCC Hybrid",
-                savingsText: "freigesetzt"
+                xrplLabel: "XRPL + DTCC Hybrid"
             },
             en: {
                 subtitle: "DTCC × XRPL Hub",
@@ -194,12 +187,12 @@
                 labelRlusd: "RLUSD Share (%)",
                 simButton: "Start Simulation",
                 tradfiLabel: "TradFi (DTCC)",
-                xrplLabel: "XRPL + DTCC Hybrid",
-                savingsText: "saved"
+                xrplLabel: "XRPL + DTCC Hybrid"
             }
         };
 
         function switchLanguage(lang) {
+            // Alle Texte aktualisieren
             document.getElementById("hub-subtitle").textContent = translations[lang].subtitle;
             document.getElementById("hub-description").textContent = translations[lang].description;
             document.getElementById("disclaimer-text").textContent = translations[lang].disclaimer;
@@ -222,11 +215,13 @@
             document.getElementById("tradfi-label").textContent = translations[lang].tradfiLabel;
             document.getElementById("xrpl-label").textContent = translations[lang].xrplLabel;
 
+            // Button Highlight
             document.getElementById("btn-de").classList.toggle("bg-emerald-600", lang === "de");
             document.getElementById("btn-en").classList.toggle("bg-emerald-600", lang === "en");
         }
 
         function runSimulator() {
+            // ... (Funktion bleibt gleich)
             const asset = parseFloat(document.getElementById('assetValue').value) || 1000000;
             const margin = parseFloat(document.getElementById('margin').value) / 100;
             const volatility = parseFloat(document.getElementById('volatility').value) / 100;
@@ -238,7 +233,7 @@
 
             document.getElementById('tradfiLocked').textContent = '$' + tradfiLocked.toLocaleString('de-DE');
             document.getElementById('xrplLocked').textContent = '$' + xrplLocked.toLocaleString('de-DE');
-            document.getElementById('savingsText').textContent = `→ $${savings.toLocaleString('de-DE')} ${translations[document.getElementById('btn-de').classList.contains('bg-emerald-600') ? 'de' : 'en'].savingsText} (${Math.round((savings/tradfiLocked)*100)}%)`;
+            document.getElementById('savingsText').textContent = `→ $${savings.toLocaleString('de-DE')} freigesetzt (${Math.round((savings/tradfiLocked)*100)}%)`;
 
             document.getElementById('tradfiBar').style.width = '100%';
             document.getElementById('xrplBar').style.width = Math.round((xrplLocked / tradfiLocked) * 100) + '%';
@@ -246,11 +241,12 @@
             document.getElementById('simResult').classList.remove('hidden');
         }
 
-        // Live Slider
+        // Slider live update
         document.getElementById('margin').addEventListener('input', () => document.getElementById('marginValue').textContent = document.getElementById('margin').value + '%');
         document.getElementById('volatility').addEventListener('input', () => document.getElementById('volValue').textContent = document.getElementById('volatility').value + '%');
         document.getElementById('rlusdShare').addEventListener('input', () => document.getElementById('rlusdValue').textContent = document.getElementById('rlusdShare').value + '%');
 
+        // Start auf Deutsch
         window.onload = () => switchLanguage('de');
     </script>
 </body>
