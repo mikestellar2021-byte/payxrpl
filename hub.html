@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,87 +8,120 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <style>
         body { font-family: system-ui, -apple-system, sans-serif; }
-        .card-hover:hover { transform: translateY(-4px); }
+        .card-hover:hover { transform: translateY(-8px); }
+        .simulator-result { transition: all 0.4s ease; }
     </style>
 </head>
 <body class="bg-zinc-950 text-white min-h-screen">
 
     <div class="max-w-5xl mx-auto p-4 sm:p-6">
 
-        <!-- === GLEICHER HEADER WIE AUF STARTSEITE === -->
-        <div class="bg-zinc-900 border-b border-zinc-800 py-3 mb-8">
+        <!-- HEADER -->
+        <div class="bg-zinc-900 border-b border-zinc-800 py-3 mb-10">
             <div class="max-w-5xl mx-auto px-4 flex items-center justify-between text-sm">
                 <div class="flex items-center gap-6 font-medium">
                     <a href="/" class="hover:text-emerald-400 transition">Home</a>
                     <a href="/index.html" class="hover:text-emerald-400 transition">Rechnung erstellen</a>
-                    <a href="/hub" class="text-emerald-400 font-semibold hover:text-emerald-300 transition">DTCC × XRPL Hub</a>
+                    <a href="/hub.html" class="text-emerald-400 font-semibold hover:text-emerald-300 transition">DTCC × XRPL Hub</a>
                 </div>
 
                 <div class="flex items-center gap-5">
-                    <a href="https://github.com/mikestellar2021-byte/xrpl-dtcc-bridge-hub" 
-                       target="_blank" 
+                    <a href="https://github.com/mikestellar2021-byte/xrpl-dtcc-bridge-hub" target="_blank" 
                        class="flex items-center gap-1.5 text-zinc-400 hover:text-white transition">
                         <i class="fa-brands fa-github"></i>
-                        <span class="hidden sm:inline">GitHub</span>
                     </a>
                     
                     <div class="flex gap-1 bg-zinc-800 rounded-3xl p-1">
-                        <button onclick="window.location.href='/'" class="px-4 py-1.5 rounded-3xl text-sm font-medium transition">🇩🇪</button>
-                        <button onclick="window.location.href='/'" class="px-4 py-1.5 rounded-3xl text-sm font-medium transition bg-emerald-600">🇬🇧</button>
+                        <button onclick="switchLanguage('de')" id="btn-de" class="px-4 py-1.5 rounded-3xl text-sm font-medium transition bg-emerald-600">🇩🇪</button>
+                        <button onclick="switchLanguage('en')" id="btn-en" class="px-4 py-1.5 rounded-3xl text-sm font-medium transition">🇬🇧</button>
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- Logo + Titel -->
-        <div class="flex items-center gap-3 mb-10">
-            <div class="w-12 h-12 bg-emerald-500 rounded-2xl flex items-center justify-center text-4xl">⚡</div>
-            <h1 class="text-5xl font-bold tracking-tighter">PayXRPL</h1>
+        <div class="flex items-center gap-4 mb-8">
+            <div class="w-14 h-14 bg-emerald-500 rounded-3xl flex items-center justify-center text-5xl">⚡</div>
+            <div>
+                <h1 class="text-5xl font-bold tracking-tighter">PayXRPL</h1>
+                <p id="hub-subtitle" class="text-emerald-400 text-xl">DTCC × XRPL Hub</p>
+            </div>
         </div>
 
-        <h2 class="text-4xl font-bold mb-2">DTCC × XRPL Hub</h2>
-        <p class="text-zinc-400 text-lg mb-12">Praktische Guides, Code und Tools für XRPL + DTCC / Ripple Prime (2026)</p>
+        <!-- DISCLAIMER - höher und fett -->
+        <div class="bg-zinc-900 border border-amber-500/30 rounded-2xl p-5 mb-10 text-center">
+            <p class="text-amber-400 font-bold text-base tracking-wide">
+                ⚠️ Dies ist ein Community & Bildungsprojekt • Nicht offiziell mit DTCC oder Ripple verbunden
+            </p>
+        </div>
 
-        <div class="grid md:grid-cols-2 gap-6">
+        <p id="hub-description" class="text-zinc-400 text-lg max-w-2xl mb-12">
+            Praktische Guides, Code-Beispiele und Tools für die Verbindung von XRPL mit DTCC und Ripple Prime (2026)
+        </p>
 
-            <!-- Guide Cards -->
+        <!-- Guide Cards -->
+        <div class="grid md:grid-cols-2 gap-6 mb-16">
             <div class="bg-zinc-900 rounded-3xl p-8 card-hover border border-zinc-800">
-                <h3 class="text-2xl font-semibold mb-3">🚀 Getting Started</h3>
-                <p class="text-zinc-400">XRPL + Ripple Prime (NSCC 0443) Grundlagen und erste Schritte.</p>
-                <a href="https://github.com/mikestellar2021-byte/xrpl-dtcc-bridge-hub" target="_blank" class="text-emerald-400 mt-6 inline-block">→ Guide lesen</a>
+                <div class="text-5xl mb-4">🚀</div>
+                <h3 class="text-2xl font-semibold mb-3">Getting Started</h3>
+                <p class="text-zinc-400">XRPL + Ripple Prime (NSCC 0443) Grundlagen, Setup und erste Schritte.</p>
+                <a href="https://github.com/mikestellar2021-byte/xrpl-dtcc-bridge-hub" target="_blank" class="text-emerald-400 mt-6 inline-flex items-center gap-2 hover:underline">
+                    Guide lesen →
+                </a>
             </div>
 
             <div class="bg-zinc-900 rounded-3xl p-8 card-hover border border-zinc-800">
-                <h3 class="text-2xl font-semibold mb-3">🔄 Collateral Optimization</h3>
-                <p class="text-zinc-400">Kapital effizienter nutzen mit XRPL AMM und DTCC-cleared Assets.</p>
-                <a href="https://github.com/mikestellar2021-byte/xrpl-dtcc-bridge-hub" target="_blank" class="text-emerald-400 mt-6 inline-block">→ Guide lesen</a>
+                <div class="text-5xl mb-4">🔄</div>
+                <h3 class="text-2xl font-semibold mb-3">Collateral Optimization</h3>
+                <p class="text-zinc-400">Kapital effizienter nutzen durch XRPL AMM und DTCC-cleared Assets.</p>
+                <a href="https://github.com/mikestellar2021-byte/xrpl-dtcc-bridge-hub" target="_blank" class="text-emerald-400 mt-6 inline-flex items-center gap-2 hover:underline">
+                    Guide lesen →
+                </a>
             </div>
 
             <div class="bg-zinc-900 rounded-3xl p-8 card-hover border border-zinc-800">
-                <h3 class="text-2xl font-semibold mb-3">🔗 Chainlink CCIP Integration</h3>
-                <p class="text-zinc-400">Sichere Oracles und Cross-Chain Verbindungen zu DTCC Tokenized Assets.</p>
-                <a href="https://github.com/mikestellar2021-byte/xrpl-dtcc-bridge-hub" target="_blank" class="text-emerald-400 mt-6 inline-block">→ Guide lesen</a>
+                <div class="text-5xl mb-4">🔗</div>
+                <h3 class="text-2xl font-semibold mb-3">Chainlink CCIP Integration</h3>
+                <p class="text-zinc-400">Sichere Oracles und Cross-Chain Verbindungen zu tokenized DTCC Assets.</p>
+                <a href="https://github.com/mikestellar2021-byte/xrpl-dtcc-bridge-hub" target="_blank" class="text-emerald-400 mt-6 inline-flex items-center gap-2 hover:underline">
+                    Guide lesen →
+                </a>
             </div>
 
             <div class="bg-zinc-900 rounded-3xl p-8 card-hover border border-zinc-800">
-                <h3 class="text-2xl font-semibold mb-3">📚 Alle Guides & Code</h3>
+                <div class="text-5xl mb-4">📚</div>
+                <h3 class="text-2xl font-semibold mb-3">Alle Guides & Code</h3>
                 <p class="text-zinc-400">Vollständiges Open-Source Repository mit Beispielen und Simulatoren.</p>
-                <a href="https://github.com/mikestellar2021-byte/xrpl-dtcc-bridge-hub" target="_blank" class="text-emerald-400 mt-6 inline-block">→ Zum GitHub Repo →</a>
+                <a href="https://github.com/mikestellar2021-byte/xrpl-dtcc-bridge-hub" target="_blank" class="text-emerald-400 mt-6 inline-flex items-center gap-2 hover:underline">
+                    Zum GitHub Repo →
+                </a>
             </div>
         </div>
 
-        <div class="mt-16 text-center">
-            <a href="https://github.com/mikestellar2021-byte/xrpl-dtcc-bridge-hub" target="_blank" 
-               class="inline-flex items-center gap-3 bg-emerald-600 hover:bg-emerald-500 text-black font-semibold px-10 py-5 rounded-3xl text-lg">
-                <i class="fa-brands fa-github text-2xl"></i>
-                Vollständiges Hub auf GitHub öffnen
-            </a>
-        </div>
+        <!-- Collateral Simulator -->
+        <div class="bg-zinc-900 rounded-3xl p-8 mb-12">
+            <h3 class="text-2xl font-semibold mb-6 flex items-center gap-3">
+                <span class="text-3xl">📊</span> Collateral Rebalancer Simulator
+            </h3>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <label class="block text-zinc-400 mb-2">DTCC Asset Wert (USD)</label>
+                    <input id="assetValue" type="number" value="1000000" 
+                           class="w-full bg-zinc-800 border border-zinc-700 rounded-3xl px-6 py-5 text-3xl font-mono focus:outline-none focus:border-emerald-500">
+                </div>
+                <div>
+                    <label class="block text-zinc-400 mb-2">Margin Requirement (%)</label>
+                    <input id="margin" type="range" min="5" max="50" value="15" class="w-full accent-emerald-500">
+                    <div class="text-center text-4xl font-bold mt-3 text-emerald-400" id="marginValue">15%</div>
+                </div>
+            </div>
 
-        <div class="mt-20 text-center text-zinc-500 text-sm">
-            Dies ist ein Community & Bildungsprojekt • Nicht offiziell mit DTCC oder Ripple verbunden
-        </div>
-    </div>
+            <button onclick="runSimulator()" 
+                    class="mt-8 w-full bg-emerald-500 hover:bg-emerald-600 text-black font-semibold text-xl py-6 rounded-3xl">
+                    Simulation starten – Kapital freisetzen
+            </button>
 
-</body>
-</html>
+            <div id="simResult" class="hidden mt-8 bg-emerald-900/30 border border-emerald-500 rounded-3xl p-8 text-center simulator-result">
+                <p class="text-emerald-400 text-sm mb-2">Mögliche Einsparung mit XRPL + DTCC</p>
+                <div id="savings" class="text-5xl font-bold text-emerald-400"></div>
+                <p class="text-zinc-400 mt-3">durch 3–5 Sekunden Settlement & automatisches Rebalancing</p>
