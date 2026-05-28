@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Praktische Guides, Code und Tools für XRPL + DTCC, Ripple Prime und Tokenized Assets 2026">
+    <meta name="description" content="Praktische Guides, Code und Tools für XRPL + DTCC, Ripple Prime und Tokenized Assets">
     <title>DTCC × XRPL Hub | PayXRPL</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
@@ -11,6 +11,7 @@
         body { font-family: system-ui, -apple-system, sans-serif; }
         .card-hover { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
         .card-hover:hover { transform: translateY(-12px); box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25); }
+        .progress-bar { transition: width 1.2s ease; }
     </style>
 </head>
 <body class="bg-zinc-950 text-white min-h-screen">
@@ -90,6 +91,61 @@
             </div>
         </div>
 
+        <!-- INTERAKTIVER SIMULATOR -->
+        <div class="bg-zinc-900 rounded-3xl p-10">
+            <h3 class="text-3xl font-semibold mb-10 flex items-center gap-4">
+                <span class="text-4xl">📊</span> <span id="sim-title">Collateral Rebalancer Simulator</span>
+            </h3>
+
+            <div class="grid md:grid-cols-2 gap-10">
+                <div class="space-y-8">
+                    <div>
+                        <label id="label-asset" class="block text-zinc-400 mb-2">DTCC Asset Wert (USD)</label>
+                        <input id="assetValue" type="number" value="1000000" class="w-full bg-zinc-800 border border-zinc-700 rounded-3xl px-6 py-5 text-3xl font-mono">
+                    </div>
+                    <div>
+                        <label id="label-margin" class="block text-zinc-400 mb-2">Margin Requirement (%)</label>
+                        <input id="margin" type="range" min="5" max="40" value="15" class="w-full accent-emerald-500">
+                        <div class="text-center text-4xl font-bold mt-3 text-emerald-400" id="marginValue">15%</div>
+                    </div>
+                </div>
+                <div class="space-y-8">
+                    <div>
+                        <label id="label-vol" class="block text-zinc-400 mb-2">Volatilität (%)</label>
+                        <input id="volatility" type="range" min="5" max="50" value="20" class="w-full accent-emerald-500">
+                        <div class="text-center text-4xl font-bold mt-3 text-emerald-400" id="volValue">20%</div>
+                    </div>
+                    <div>
+                        <label id="label-rlusd" class="block text-zinc-400 mb-2">RLUSD Anteil (%)</label>
+                        <input id="rlusdShare" type="range" min="0" max="100" value="40" class="w-full accent-emerald-500">
+                        <div class="text-center text-4xl font-bold mt-3 text-emerald-400" id="rlusdValue">40%</div>
+                    </div>
+                </div>
+            </div>
+
+            <button onclick="runSimulator()" id="sim-button" class="mt-12 w-full bg-emerald-500 hover:bg-emerald-600 text-black font-semibold text-xl py-7 rounded-3xl">
+                Simulation starten
+            </button>
+
+            <div id="simResult" class="hidden mt-12 grid md:grid-cols-2 gap-8">
+                <div class="bg-zinc-800 rounded-3xl p-8">
+                    <p id="tradfi-label" class="text-zinc-400">TradFi (DTCC)</p>
+                    <div class="h-5 bg-zinc-700 rounded-full mt-6">
+                        <div id="tradfiBar" class="h-5 bg-amber-500 rounded-full progress-bar" style="width:100%"></div>
+                    </div>
+                    <p id="tradfiLocked" class="text-4xl font-bold mt-6">$150.000</p>
+                </div>
+                <div class="bg-emerald-900/30 border border-emerald-500 rounded-3xl p-8">
+                    <p id="xrpl-label" class="text-emerald-400">XRPL + DTCC Hybrid</p>
+                    <div class="h-5 bg-zinc-700 rounded-full mt-6">
+                        <div id="xrplBar" class="h-5 bg-emerald-500 rounded-full progress-bar" style="width:62%"></div>
+                    </div>
+                    <p id="xrplLocked" class="text-4xl font-bold mt-6 text-emerald-400">$93.000</p>
+                    <p id="savingsText" class="text-emerald-400 font-semibold mt-6 text-xl"></p>
+                </div>
+            </div>
+        </div>
+
         <!-- Footer -->
         <footer class="mt-24 text-center text-zinc-500 text-sm border-t border-zinc-800 pt-10">
             Made with ⚡ by <a href="https://x.com/MikeStellar" target="_blank" class="text-emerald-400 hover:underline">@MikeStellar</a><br>
@@ -110,7 +166,15 @@
                 card3: "Chainlink CCIP Integration",
                 card3text: "Sichere Brücke zwischen DTCC Tokenized Assets und XRPL.",
                 card4: "Alle Guides & Code",
-                card4text: "Vollständiges Open-Source Repository mit allen Beispielen und Simulatoren."
+                card4text: "Vollständiges Open-Source Repository mit allen Beispielen und Simulatoren.",
+                simTitle: "Collateral Rebalancer Simulator",
+                labelAsset: "DTCC Asset Wert (USD)",
+                labelMargin: "Margin Requirement (%)",
+                labelVol: "Volatilität (%)",
+                labelRlusd: "RLUSD Anteil (%)",
+                simButton: "Simulation starten",
+                tradfiLabel: "TradFi (DTCC)",
+                xrplLabel: "XRPL + DTCC Hybrid"
             },
             en: {
                 subtitle: "DTCC × XRPL Hub",
@@ -123,7 +187,15 @@
                 card3: "Chainlink CCIP Integration",
                 card3text: "Secure bridge between DTCC tokenized assets and XRPL.",
                 card4: "All Guides & Code",
-                card4text: "Full open source repository with examples and simulators."
+                card4text: "Full open source repository with examples and simulators.",
+                simTitle: "Collateral Rebalancer Simulator",
+                labelAsset: "DTCC Asset Value (USD)",
+                labelMargin: "Margin Requirement (%)",
+                labelVol: "Volatility (%)",
+                labelRlusd: "RLUSD Share (%)",
+                simButton: "Start Simulation",
+                tradfiLabel: "TradFi (DTCC)",
+                xrplLabel: "XRPL + DTCC Hybrid"
             }
         };
 
@@ -141,9 +213,43 @@
             document.getElementById("card4-title").textContent = translations[lang].card4;
             document.getElementById("card4-text").textContent = translations[lang].card4text;
 
+            document.getElementById("sim-title").textContent = translations[lang].simTitle;
+            document.getElementById("label-asset").textContent = translations[lang].labelAsset;
+            document.getElementById("label-margin").textContent = translations[lang].labelMargin;
+            document.getElementById("label-vol").textContent = translations[lang].labelVol;
+            document.getElementById("label-rlusd").textContent = translations[lang].labelRlusd;
+            document.getElementById("sim-button").textContent = translations[lang].simButton;
+            document.getElementById("tradfi-label").textContent = translations[lang].tradfiLabel;
+            document.getElementById("xrpl-label").textContent = translations[lang].xrplLabel;
+
             document.getElementById("btn-de").classList.toggle("bg-emerald-600", lang === "de");
             document.getElementById("btn-en").classList.toggle("bg-emerald-600", lang === "en");
         }
+
+        function runSimulator() {
+            const asset = parseFloat(document.getElementById('assetValue').value) || 1000000;
+            const margin = parseFloat(document.getElementById('margin').value) / 100;
+            const volatility = parseFloat(document.getElementById('volatility').value) / 100;
+            const rlusdShare = parseFloat(document.getElementById('rlusdShare').value) / 100;
+
+            const tradfiLocked = Math.round(asset * margin * (1 + volatility * 1.2));
+            const xrplLocked = Math.round(asset * margin * 0.55 * (1 - rlusdShare * 0.4));
+            const savings = tradfiLocked - xrplLocked;
+
+            document.getElementById('tradfiLocked').textContent = '$' + tradfiLocked.toLocaleString('de-DE');
+            document.getElementById('xrplLocked').textContent = '$' + xrplLocked.toLocaleString('de-DE');
+            document.getElementById('savingsText').textContent = `→ $${savings.toLocaleString('de-DE')} freigesetzt (${Math.round((savings/tradfiLocked)*100)}%)`;
+
+            document.getElementById('tradfiBar').style.width = '100%';
+            document.getElementById('xrplBar').style.width = Math.round((xrplLocked / tradfiLocked) * 100) + '%';
+
+            document.getElementById('simResult').classList.remove('hidden');
+        }
+
+        // Live Slider
+        document.getElementById('margin').addEventListener('input', () => document.getElementById('marginValue').textContent = document.getElementById('margin').value + '%');
+        document.getElementById('volatility').addEventListener('input', () => document.getElementById('volValue').textContent = document.getElementById('volatility').value + '%');
+        document.getElementById('rlusdShare').addEventListener('input', () => document.getElementById('rlusdValue').textContent = document.getElementById('rlusdShare').value + '%');
 
         window.onload = () => switchLanguage('de');
     </script>
