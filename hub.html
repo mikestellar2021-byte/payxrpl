@@ -25,43 +25,114 @@
                 </div>
 
                 <div class="flex items-center gap-5">
-                    <a href="https://github.com/mikestellar2021-byte/xrpl-dtcc-bridge-hub" target="_blank" class="flex items-center gap-1.5 text-zinc-400 hover:text-white">
+                    <a href="https://github.com/mikestellar2021-byte/xrpl-dtcc-bridge-hub" target="_blank" class="flex items-center gap-1.5 text-zinc-400 hover:text-white transition">
                         <i class="fa-brands fa-github"></i>
                     </a>
                     <div class="flex gap-1 bg-zinc-800 rounded-3xl p-1">
-                        <button onclick="switchLanguage('de')" id="btn-de" class="px-5 py-2 rounded-3xl text-sm font-medium transition">🇩🇪 DE</button>
+                        <button onclick="switchLanguage('de')" id="btn-de" class="px-5 py-2 rounded-3xl text-sm font-medium transition bg-emerald-600">🇩🇪 DE</button>
                         <button onclick="switchLanguage('en')" id="btn-en" class="px-5 py-2 rounded-3xl text-sm font-medium transition">🇬🇧 EN</button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <h1 class="text-4xl font-bold mb-2">DTCC × XRPL Hub</h1>
-        <p id="description" class="text-zinc-400 mb-8">Praktische Guides, Code-Beispiele und Tools...</p>
+        <!-- Titel -->
+        <div class="flex items-center gap-4 mb-8">
+            <div class="w-14 h-14 bg-emerald-500 rounded-3xl flex items-center justify-center text-5xl">⚡</div>
+            <div>
+                <h1 class="text-5xl font-bold tracking-tighter">PayXRPL</h1>
+                <p id="hub-subtitle" class="text-emerald-400 text-xl">DTCC × XRPL Hub</p>
+            </div>
+        </div>
 
-        <div class="text-center mt-12">
-            <button onclick="switchLanguage('de')" class="bg-emerald-600 px-6 py-3 rounded-xl mx-2">DE</button>
-            <button onclick="switchLanguage('en')" class="bg-zinc-700 px-6 py-3 rounded-xl mx-2">EN</button>
+        <!-- Disclaimer -->
+        <div class="bg-zinc-900 border border-amber-500/30 rounded-2xl p-5 mb-10 text-center">
+            <p id="disclaimer-text" class="text-amber-400 font-bold">
+                ⚠️ Dies ist ein Community & Bildungsprojekt • Nicht offiziell mit DTCC oder Ripple verbunden
+            </p>
+        </div>
+
+        <p id="hub-description" class="text-zinc-400 text-lg mb-12">
+            Praktische Guides, Code-Beispiele und Tools für die Verbindung von XRPL mit DTCC und Ripple Prime (2026)
+        </p>
+
+        <!-- 4 Karten -->
+        <div class="grid md:grid-cols-2 gap-6">
+            <div class="bg-zinc-900 rounded-3xl p-8 card-hover">
+                <div class="text-5xl mb-4">🚀</div>
+                <h3 id="card1-title" class="text-2xl font-semibold mb-3">Getting Started</h3>
+                <p id="card1-text" class="text-zinc-400">XRPL + Ripple Prime (NSCC 0443) Grundlagen, Setup und erste Schritte.</p>
+            </div>
+
+            <div class="bg-zinc-900 rounded-3xl p-8 card-hover">
+                <div class="text-5xl mb-4">🔄</div>
+                <h3 id="card2-title" class="text-2xl font-semibold mb-3">Collateral Optimization</h3>
+                <p id="card2-text" class="text-zinc-400">Kapital effizienter nutzen durch XRPL AMM und DTCC-cleared Assets.</p>
+            </div>
+
+            <div class="bg-zinc-900 rounded-3xl p-8 card-hover">
+                <div class="text-5xl mb-4">🔗</div>
+                <h3 id="card3-title" class="text-2xl font-semibold mb-3">Chainlink CCIP Integration</h3>
+                <p id="card3-text" class="text-zinc-400">Sichere Oracles und Cross-Chain Verbindungen zu tokenized DTCC Assets.</p>
+            </div>
+
+            <div class="bg-zinc-900 rounded-3xl p-8 card-hover">
+                <div class="text-5xl mb-4">📚</div>
+                <h3 id="card4-title" class="text-2xl font-semibold mb-3">Alle Guides & Code</h3>
+                <p id="card4-text" class="text-zinc-400">Vollständiges Open-Source Repository mit Beispielen und Simulatoren.</p>
+            </div>
         </div>
 
     </div>
 
     <script>
-        function switchLanguage(lang) {
-            console.log("Sprache gewechselt zu:", lang); // Zum Debuggen
-
-            if (lang === 'de') {
-                document.getElementById("description").textContent = "Praktische Guides, Code-Beispiele und Tools für XRPL + DTCC (2026)";
-            } else {
-                document.getElementById("description").textContent = "Practical guides, code samples and tools for XRPL + DTCC (2026)";
+        const translations = {
+            de: {
+                subtitle: "DTCC × XRPL Hub",
+                description: "Praktische Guides, Code-Beispiele und Tools für die Verbindung von XRPL mit DTCC und Ripple Prime (2026)",
+                disclaimer: "⚠️ Dies ist ein Community & Bildungsprojekt • Nicht offiziell mit DTCC oder Ripple verbunden",
+                card1: "Getting Started",
+                card1text: "XRPL + Ripple Prime (NSCC 0443) Grundlagen, Setup und erste Schritte.",
+                card2: "Collateral Optimization",
+                card2text: "Kapital effizienter nutzen durch XRPL AMM und DTCC-cleared Assets.",
+                card3: "Chainlink CCIP Integration",
+                card3text: "Sichere Oracles und Cross-Chain Verbindungen zu tokenized DTCC Assets.",
+                card4: "Alle Guides & Code",
+                card4text: "Vollständiges Open-Source Repository mit Beispielen und Simulatoren."
+            },
+            en: {
+                subtitle: "DTCC × XRPL Hub",
+                description: "Practical guides, code samples and tools for connecting XRPL with DTCC and Ripple Prime (2026)",
+                disclaimer: "⚠️ This is a community & educational project • Not officially affiliated with DTCC or Ripple",
+                card1: "Getting Started",
+                card1text: "XRPL + Ripple Prime (NSCC 0443) basics, setup and first steps.",
+                card2: "Collateral Optimization",
+                card2text: "Use capital more efficiently with XRPL AMM and DTCC-cleared assets.",
+                card3: "Chainlink CCIP Integration",
+                card3text: "Secure oracles and cross-chain connections to tokenized DTCC assets.",
+                card4: "All Guides & Code",
+                card4text: "Full open source repository with examples and simulators."
             }
+        };
 
-            // Button Highlight
+        function switchLanguage(lang) {
+            document.getElementById("hub-subtitle").textContent = translations[lang].subtitle;
+            document.getElementById("hub-description").textContent = translations[lang].description;
+            document.getElementById("disclaimer-text").textContent = translations[lang].disclaimer;
+
+            document.getElementById("card1-title").textContent = translations[lang].card1;
+            document.getElementById("card1-text").textContent = translations[lang].card1text;
+            document.getElementById("card2-title").textContent = translations[lang].card2;
+            document.getElementById("card2-text").textContent = translations[lang].card2text;
+            document.getElementById("card3-title").textContent = translations[lang].card3;
+            document.getElementById("card3-text").textContent = translations[lang].card3text;
+            document.getElementById("card4-title").textContent = translations[lang].card4;
+            document.getElementById("card4-text").textContent = translations[lang].card4text;
+
             document.getElementById("btn-de").classList.toggle("bg-emerald-600", lang === "de");
             document.getElementById("btn-en").classList.toggle("bg-emerald-600", lang === "en");
         }
 
-        // Start auf Deutsch
         window.onload = () => switchLanguage('de');
     </script>
 </body>
