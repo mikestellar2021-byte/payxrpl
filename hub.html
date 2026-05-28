@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Praktische Guides, Code und Tools für XRPL + DTCC, Ripple Prime und Tokenized Assets 2026">
-    <meta name="keywords" content="XRPL, DTCC, Ripple Prime, Tokenized Assets, Collateral, RLUSD, Chainlink CCIP">
+    <meta name="keywords" content="XRPL, DTCC, Ripple Prime, Tokenized Assets, Collateral, RLUSD, Chainlink">
     <title>DTCC × XRPL Hub | PayXRPL</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <style>
         body { font-family: system-ui, -apple-system, sans-serif; }
         .card-hover { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
-        .card-hover:hover { transform: translateY(-12px); }
+        .card-hover:hover { transform: translateY(-12px); box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25); }
         .progress-bar { transition: width 1.2s ease; }
     </style>
 </head>
@@ -42,7 +42,7 @@
 
         <!-- Hero -->
         <div class="flex items-center gap-5 mb-10">
-            <div class="w-16 h-16 bg-emerald-500 rounded-3xl flex items-center justify-center text-6xl shadow-lg">⚡</div>
+            <div class="w-16 h-16 bg-emerald-500 rounded-3xl flex items-center justify-center text-6xl shadow-xl">⚡</div>
             <div>
                 <h1 class="text-6xl font-bold tracking-tighter">PayXRPL</h1>
                 <p id="hub-subtitle" class="text-emerald-400 text-2xl">DTCC × XRPL Hub</p>
@@ -50,7 +50,7 @@
         </div>
 
         <!-- Disclaimer -->
-        <div class="bg-zinc-900 border border-amber-500/40 rounded-3xl p-6 mb-12 text-center">
+        <div class="bg-zinc-900 border border-amber-500/30 rounded-3xl p-6 mb-12 text-center">
             <p id="disclaimer-text" class="text-amber-400 font-bold text-lg">
                 ⚠️ Dies ist ein Community & Bildungsprojekt • Nicht offiziell mit DTCC oder Ripple verbunden
             </p>
@@ -66,24 +66,28 @@
                 <div class="text-6xl mb-6">🚀</div>
                 <h3 id="card1-title" class="text-3xl font-semibold mb-3">Getting Started</h3>
                 <p id="card1-text" class="text-zinc-400">XRPL + Ripple Prime (NSCC 0443) Grundlagen, Setup und erste Schritte.</p>
+                <a href="https://github.com/mikestellar2021-byte/xrpl-dtcc-bridge-hub" target="_blank" class="text-emerald-400 mt-8 inline-flex items-center gap-2 hover:underline text-lg font-medium">Guide lesen →</a>
             </div>
 
             <div class="bg-zinc-900 rounded-3xl p-8 card-hover border border-zinc-800">
                 <div class="text-6xl mb-6">🔄</div>
                 <h3 id="card2-title" class="text-3xl font-semibold mb-3">Collateral Optimization</h3>
                 <p id="card2-text" class="text-zinc-400">Kapital effizienter nutzen durch XRPL AMM und DTCC-cleared Assets.</p>
+                <a href="https://github.com/mikestellar2021-byte/xrpl-dtcc-bridge-hub" target="_blank" class="text-emerald-400 mt-8 inline-flex items-center gap-2 hover:underline text-lg font-medium">Guide lesen →</a>
             </div>
 
             <div class="bg-zinc-900 rounded-3xl p-8 card-hover border border-zinc-800">
                 <div class="text-6xl mb-6">🔗</div>
                 <h3 id="card3-title" class="text-3xl font-semibold mb-3">Chainlink CCIP Integration</h3>
                 <p id="card3-text" class="text-zinc-400">Sichere Oracles und Cross-Chain Verbindungen zu tokenized DTCC Assets.</p>
+                <a href="https://github.com/mikestellar2021-byte/xrpl-dtcc-bridge-hub" target="_blank" class="text-emerald-400 mt-8 inline-flex items-center gap-2 hover:underline text-lg font-medium">Guide lesen →</a>
             </div>
 
             <div class="bg-zinc-900 rounded-3xl p-8 card-hover border border-zinc-800">
                 <div class="text-6xl mb-6">📚</div>
                 <h3 id="card4-title" class="text-3xl font-semibold mb-3">Alle Guides & Code</h3>
                 <p id="card4-text" class="text-zinc-400">Vollständiges Open-Source Repository mit Beispielen und Simulatoren.</p>
+                <a href="https://github.com/mikestellar2021-byte/xrpl-dtcc-bridge-hub" target="_blank" class="text-emerald-400 mt-8 inline-flex items-center gap-2 hover:underline text-lg font-medium">Zum GitHub Repo →</a>
             </div>
         </div>
 
@@ -96,23 +100,23 @@
             <div class="grid md:grid-cols-2 gap-10">
                 <div class="space-y-8">
                     <div>
-                        <label id="label-asset" class="block text-zinc-400 mb-3">DTCC Asset Wert (USD)</label>
-                        <input id="assetValue" type="number" value="1000000" class="w-full bg-zinc-800 border border-zinc-700 rounded-3xl px-6 py-5 text-3xl">
+                        <label id="label-asset" class="block text-zinc-400 mb-2">DTCC Asset Wert (USD)</label>
+                        <input id="assetValue" type="number" value="1000000" class="w-full bg-zinc-800 border border-zinc-700 rounded-3xl px-6 py-5 text-3xl font-mono">
                     </div>
                     <div>
-                        <label id="label-margin" class="block text-zinc-400 mb-3">Margin Requirement (%)</label>
+                        <label id="label-margin" class="block text-zinc-400 mb-2">Margin Requirement (%)</label>
                         <input id="margin" type="range" min="5" max="40" value="15" class="w-full accent-emerald-500">
                         <div class="text-center text-4xl font-bold mt-3 text-emerald-400" id="marginValue">15%</div>
                     </div>
                 </div>
                 <div class="space-y-8">
                     <div>
-                        <label id="label-vol" class="block text-zinc-400 mb-3">Volatilität (%)</label>
+                        <label id="label-vol" class="block text-zinc-400 mb-2">Volatilität (%)</label>
                         <input id="volatility" type="range" min="5" max="50" value="20" class="w-full accent-emerald-500">
                         <div class="text-center text-4xl font-bold mt-3 text-emerald-400" id="volValue">20%</div>
                     </div>
                     <div>
-                        <label id="label-rlusd" class="block text-zinc-400 mb-3">RLUSD Anteil (%)</label>
+                        <label id="label-rlusd" class="block text-zinc-400 mb-2">RLUSD Anteil (%)</label>
                         <input id="rlusdShare" type="range" min="0" max="100" value="40" class="w-full accent-emerald-500">
                         <div class="text-center text-4xl font-bold mt-3 text-emerald-400" id="rlusdValue">40%</div>
                     </div>
@@ -134,7 +138,7 @@
                 <div class="bg-emerald-900/30 border border-emerald-500 rounded-3xl p-8">
                     <p id="xrpl-label" class="text-emerald-400">XRPL + DTCC Hybrid</p>
                     <div class="h-5 bg-zinc-700 rounded-full mt-6">
-                        <div id="xrplBar" class="h-5 bg-emerald-500 rounded-full progress-bar" style="width:60%"></div>
+                        <div id="xrplBar" class="h-5 bg-emerald-500 rounded-full progress-bar" style="width:62%"></div>
                     </div>
                     <p id="xrplLocked" class="text-4xl font-bold mt-6 text-emerald-400">$93.000</p>
                     <p id="savingsText" class="text-emerald-400 font-semibold mt-6 text-xl"></p>
@@ -143,9 +147,9 @@
         </div>
 
         <!-- Footer -->
-        <footer class="mt-24 text-center text-zinc-500 border-t border-zinc-800 pt-10">
-            <p>Made with ⚡ by <a href="https://x.com/MikeStellar" target="_blank" class="text-emerald-400">@MikeStellar</a></p>
-            <p class="mt-2">PayXRPL • 2026</p>
+        <footer class="mt-24 text-center text-zinc-500 text-sm border-t border-zinc-800 pt-10">
+            Made with ⚡ by <a href="https://x.com/MikeStellar" target="_blank" class="text-emerald-400 hover:underline">@MikeStellar</a><br>
+            PayXRPL • 2026
         </footer>
     </div>
 
@@ -234,7 +238,7 @@
 
             document.getElementById('tradfiLocked').textContent = '$' + tradfiLocked.toLocaleString('de-DE');
             document.getElementById('xrplLocked').textContent = '$' + xrplLocked.toLocaleString('de-DE');
-            document.getElementById('savingsText').textContent = `→ $${savings.toLocaleString('de-DE')} freigesetzt (${Math.round(savings/tradfiLocked*100)}%)`;
+            document.getElementById('savingsText').textContent = `→ $${savings.toLocaleString('de-DE')} freigesetzt (${Math.round((savings/tradfiLocked)*100)}%)`;
 
             document.getElementById('tradfiBar').style.width = '100%';
             document.getElementById('xrplBar').style.width = Math.round((xrplLocked / tradfiLocked) * 100) + '%';
@@ -242,7 +246,7 @@
             document.getElementById('simResult').classList.remove('hidden');
         }
 
-        // Slider live update
+        // Live Slider
         document.getElementById('margin').addEventListener('input', () => document.getElementById('marginValue').textContent = document.getElementById('margin').value + '%');
         document.getElementById('volatility').addEventListener('input', () => document.getElementById('volValue').textContent = document.getElementById('volatility').value + '%');
         document.getElementById('rlusdShare').addEventListener('input', () => document.getElementById('rlusdValue').textContent = document.getElementById('rlusdShare').value + '%');
