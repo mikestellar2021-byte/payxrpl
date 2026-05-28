@@ -15,14 +15,28 @@
         }
     </style>
 </head>
-<body class="bg-zinc-950 text-white min-h-screen">
-    <div class="max-w-2xl mx-auto p-4 sm:p-6">
-        <div class="flex justify-between items-center mb-8">
+        <!-- === NEUER HEADER MIT DTCC × XRPL HUB === -->
+        <div class="flex flex-wrap justify-between items-center gap-4 mb-8">
+            <!-- Logo -->
             <div class="flex items-center gap-3">
                 <div class="w-10 h-10 bg-emerald-500 rounded-2xl flex items-center justify-center text-3xl">⚡</div>
                 <h1 class="text-4xl font-bold tracking-tighter">PayXRPL</h1>
             </div>
-            
+
+            <!-- Menü -->
+            <div class="flex items-center gap-6 text-sm font-medium">
+                <a href="/" class="hover:text-emerald-400 transition">Home</a>
+                <a href="#form" onclick="document.getElementById('result').classList.add('hidden'); window.scrollTo(0,0)" 
+                   class="hover:text-emerald-400 transition">Rechnung erstellen</a>
+                <a href="/hub" class="text-emerald-400 font-semibold hover:text-emerald-300 transition">DTCC × XRPL Hub</a>
+                <a href="https://github.com/DEIN_GITHUB_USERNAME/xrpl-dtcc-bridge-hub" 
+                   target="_blank" 
+                   class="flex items-center gap-1 hover:text-emerald-400 transition">
+                    <i class="fa-brands fa-github"></i> GitHub
+                </a>
+            </div>
+
+            <!-- Sprachbuttons (bleiben genau gleich) -->
             <div class="flex gap-1 bg-zinc-900 rounded-3xl p-1">
                 <button onclick="switchLanguage('de')" id="btn-de" class="px-4 py-1.5 rounded-3xl text-sm font-medium transition">🇩🇪 DE</button>
                 <button onclick="switchLanguage('en')" id="btn-en" class="px-4 py-1.5 rounded-3xl text-sm font-medium transition bg-emerald-600">🇬🇧 EN</button>
