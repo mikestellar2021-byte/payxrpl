@@ -88,7 +88,7 @@
             </div>
         </div>
 
-        <!-- Verbesserter Simulator -->
+        <!-- Simulator -->
         <div class="bg-zinc-900 rounded-3xl p-8 mb-16">
             <h3 class="text-2xl font-semibold mb-8 flex items-center gap-3">
                 <span class="text-3xl">📊</span> <span id="sim-title">Collateral Rebalancer Simulator</span>
@@ -97,49 +97,49 @@
             <div class="grid md:grid-cols-2 gap-8">
                 <div class="space-y-6">
                     <div>
-                        <label class="block text-zinc-400 mb-2">DTCC Asset Wert (USD)</label>
+                        <label id="label-asset" class="block text-zinc-400 mb-2">DTCC Asset Wert (USD)</label>
                         <input id="assetValue" type="number" value="1000000" class="w-full bg-zinc-800 border border-zinc-700 rounded-3xl px-6 py-5 text-3xl font-mono">
                     </div>
                     <div>
-                        <label class="block text-zinc-400 mb-2">Margin Requirement (%)</label>
+                        <label id="label-margin" class="block text-zinc-400 mb-2">Margin Requirement (%)</label>
                         <input id="margin" type="range" min="5" max="40" value="15" class="w-full accent-emerald-500">
                         <div class="text-center text-3xl font-bold mt-2 text-emerald-400" id="marginValue">15%</div>
                     </div>
                 </div>
                 <div class="space-y-6">
                     <div>
-                        <label class="block text-zinc-400 mb-2">Volatilität (%)</label>
+                        <label id="label-vol" class="block text-zinc-400 mb-2">Volatilität (%)</label>
                         <input id="volatility" type="range" min="5" max="50" value="20" class="w-full accent-emerald-500">
                         <div class="text-center text-3xl font-bold mt-2 text-emerald-400" id="volValue">20%</div>
                     </div>
                     <div>
-                        <label class="block text-zinc-400 mb-2">RLUSD Anteil (%)</label>
+                        <label id="label-rlusd" class="block text-zinc-400 mb-2">RLUSD Anteil (%)</label>
                         <input id="rlusdShare" type="range" min="0" max="100" value="40" class="w-full accent-emerald-500">
                         <div class="text-center text-3xl font-bold mt-2 text-emerald-400" id="rlusdValue">40%</div>
                     </div>
                 </div>
             </div>
 
-            <button onclick="runSimulator()" class="mt-10 w-full bg-emerald-500 hover:bg-emerald-600 text-black font-semibold text-xl py-6 rounded-3xl">
+            <button onclick="runSimulator()" id="sim-button" class="mt-10 w-full bg-emerald-500 hover:bg-emerald-600 text-black font-semibold text-xl py-6 rounded-3xl">
                 Simulation starten
             </button>
 
-            <!-- Ergebnis Vergleich -->
+            <!-- Ergebnis -->
             <div id="simResult" class="hidden mt-10 grid md:grid-cols-2 gap-6">
                 <div class="bg-zinc-800 rounded-3xl p-6">
-                    <p class="text-zinc-400 text-sm mb-1">TradFi (DTCC allein)</p>
-                    <div class="h-4 bg-zinc-700 rounded-full mt-3">
+                    <p class="text-zinc-400" id="tradfi-label">TradFi (DTCC)</p>
+                    <div class="h-4 bg-zinc-700 rounded-full mt-4">
                         <div id="tradfiBar" class="h-4 bg-amber-500 rounded-full progress-bar" style="width:100%"></div>
                     </div>
                     <p id="tradfiLocked" class="text-3xl font-bold mt-4">$150,000</p>
                 </div>
                 <div class="bg-emerald-900/30 border border-emerald-500 rounded-3xl p-6">
-                    <p class="text-emerald-400 text-sm mb-1">XRPL + DTCC Hybrid</p>
-                    <div class="h-4 bg-zinc-700 rounded-full mt-3">
+                    <p class="text-emerald-400" id="xrpl-label">XRPL + DTCC Hybrid</p>
+                    <div class="h-4 bg-zinc-700 rounded-full mt-4">
                         <div id="xrplBar" class="h-4 bg-emerald-500 rounded-full progress-bar" style="width:62%"></div>
                     </div>
                     <p id="xrplLocked" class="text-3xl font-bold mt-4 text-emerald-400">$93,000</p>
-                    <p id="savingsText" class="text-emerald-400 font-semibold mt-4">→ $57,000 freigesetzt (38% Einsparung)</p>
+                    <p id="savingsText" class="text-emerald-400 font-semibold mt-4"></p>
                 </div>
             </div>
         </div>
@@ -166,7 +166,14 @@
                 card4: "Alle Guides & Code",
                 card4text: "Vollständiges Open-Source Repository mit Beispielen und Simulatoren.",
                 simTitle: "Collateral Rebalancer Simulator",
-                githubBtn: "Vollständiges Hub auf GitHub öffnen"
+                labelAsset: "DTCC Asset Wert (USD)",
+                labelMargin: "Margin Requirement (%)",
+                labelVol: "Volatilität (%)",
+                labelRlusd: "RLUSD Anteil (%)",
+                simButton: "Simulation starten",
+                tradfiLabel: "TradFi (DTCC)",
+                xrplLabel: "XRPL + DTCC Hybrid",
+                savingsText: "freigesetzt"
             },
             en: {
                 subtitle: "DTCC × XRPL Hub",
@@ -181,7 +188,14 @@
                 card4: "All Guides & Code",
                 card4text: "Full open source repository with examples and simulators.",
                 simTitle: "Collateral Rebalancer Simulator",
-                githubBtn: "Open full Hub on GitHub"
+                labelAsset: "DTCC Asset Value (USD)",
+                labelMargin: "Margin Requirement (%)",
+                labelVol: "Volatility (%)",
+                labelRlusd: "RLUSD Share (%)",
+                simButton: "Start Simulation",
+                tradfiLabel: "TradFi (DTCC)",
+                xrplLabel: "XRPL + DTCC Hybrid",
+                savingsText: "saved"
             }
         };
 
@@ -199,6 +213,15 @@
             document.getElementById("card4-title").textContent = translations[lang].card4;
             document.getElementById("card4-text").textContent = translations[lang].card4text;
 
+            document.getElementById("sim-title").textContent = translations[lang].simTitle;
+            document.getElementById("label-asset").textContent = translations[lang].labelAsset;
+            document.getElementById("label-margin").textContent = translations[lang].labelMargin;
+            document.getElementById("label-vol").textContent = translations[lang].labelVol;
+            document.getElementById("label-rlusd").textContent = translations[lang].labelRlusd;
+            document.getElementById("sim-button").textContent = translations[lang].simButton;
+            document.getElementById("tradfi-label").textContent = translations[lang].tradfiLabel;
+            document.getElementById("xrpl-label").textContent = translations[lang].xrplLabel;
+
             document.getElementById("btn-de").classList.toggle("bg-emerald-600", lang === "de");
             document.getElementById("btn-en").classList.toggle("bg-emerald-600", lang === "en");
         }
@@ -215,7 +238,7 @@
 
             document.getElementById('tradfiLocked').textContent = '$' + tradfiLocked.toLocaleString('de-DE');
             document.getElementById('xrplLocked').textContent = '$' + xrplLocked.toLocaleString('de-DE');
-            document.getElementById('savingsText').textContent = `→ $${savings.toLocaleString('de-DE')} freigesetzt (${Math.round((savings/tradfiLocked)*100)}% Einsparung)`;
+            document.getElementById('savingsText').textContent = `→ $${savings.toLocaleString('de-DE')} ${translations[document.getElementById('btn-de').classList.contains('bg-emerald-600') ? 'de' : 'en'].savingsText} (${Math.round((savings/tradfiLocked)*100)}%)`;
 
             document.getElementById('tradfiBar').style.width = '100%';
             document.getElementById('xrplBar').style.width = Math.round((xrplLocked / tradfiLocked) * 100) + '%';
@@ -223,7 +246,7 @@
             document.getElementById('simResult').classList.remove('hidden');
         }
 
-        // Live Slider Values
+        // Live Slider
         document.getElementById('margin').addEventListener('input', () => document.getElementById('marginValue').textContent = document.getElementById('margin').value + '%');
         document.getElementById('volatility').addEventListener('input', () => document.getElementById('volValue').textContent = document.getElementById('volatility').value + '%');
         document.getElementById('rlusdShare').addEventListener('input', () => document.getElementById('rlusdValue').textContent = document.getElementById('rlusdShare').value + '%');
