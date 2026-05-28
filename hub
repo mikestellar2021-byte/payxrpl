@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XRPL + DTCC Hub | payxrpl.io</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            content: [],
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+    <style>
+        .hero-bg { background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%); }
+        .card-hover { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .card-hover:hover { transform: translateY(-8px); box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1); }
+    </style>
+</head>
+<body class="bg-gray-50 dark:bg-slate-950 text-gray-900 dark:text-gray-100">
+
+    <!-- Navbar -->
+    <nav class="bg-white dark:bg-slate-900 border-b sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="/" class="flex items-center gap-2 text-2xl font-bold text-blue-600">
+                <i class="fa-solid fa-bolt"></i> payxrpl
+            </a>
+            <div class="flex items-center gap-8 text-sm font-medium">
+                <a href="/" class="hover:text-blue-600">Home</a>
+                <a href="/create" class="hover:text-blue-600">Create Invoice</a>
+                <a href="/hub" class="text-blue-600 font-semibold">DTCC × XRPL Hub</a>
+                <a href="https://github.com/yourusername/xrpl-dtcc-bridge-hub" target="_blank" class="hover:text-blue-600 flex items-center gap-1">
+                    <i class="fa-brands fa-github"></i> GitHub
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero-bg text-white py-24">
+        <div class="max-w-6xl mx-auto px-6 text-center">
+            <h1 class="text-5xl md:text-6xl font-bold mb-6">
+                XRPL + DTCC Resource Hub
+            </h1>
+            <p class="text-xl md:text-2xl max-w-3xl mx-auto text-blue-100 mb-10">
+                Free guides, code samples & tools to connect <strong>XRPL payments</strong> with DTCC, Ripple Prime (NSCC 0443) and tokenized assets — ready for 2026.
+            </p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="#guides" class="bg-white text-blue-700 px-8 py-4 rounded-2xl font-semibold text-lg hover:bg-blue-50 transition">
+                    Browse Guides
+                </a>
+                <a href="https://github.com/yourusername/xrpl-dtcc-bridge-hub" target="_blank" class="border border-white/70 hover:border-white px-8 py-4 rounded-2xl font-medium flex items-center gap-3">
+                    <i class="fa-brands fa-github"></i> Open GitHub Repo
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Stats -->
+    <div class="bg-white dark:bg-slate-900 py-8 border-b">
+        <div class="max-w-6xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            <div>
+                <div class="text-3xl font-bold text-blue-600">July 2026</div>
+                <div class="text-sm text-gray-500">DTCC Tokenization Pilot</div>
+            </div>
+            <div>
+                <div class="text-3xl font-bold text-blue-600">3-5s</div>
+                <div class="text-sm text-gray-500">XRPL Settlement</div>
+            </div>
+            <div>
+                <div class="text-3xl font-bold text-blue-600">NSCC 0443</div>
+                <div class="text-sm text-gray-500">Ripple Prime</div>
+            </div>
+            <div>
+                <div class="text-3xl font-bold text-blue-600">Free</div>
+                <div class="text-sm text-gray-500">Open Source Tools</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Guides Section -->
+    <section id="guides" class="py-20 bg-white dark:bg-slate-900">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-4">Practical Guides</h2>
+            <p class="text-center text-gray-600 dark:text-gray-400 mb-12">Everything you need to bridge XRPL payments with institutional flows</p>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Guide 1 -->
+                <div class="bg-gray-50 dark:bg-slate-800 rounded-3xl p-8 card-hover">
+                    <div class="text-blue-600 mb-4"><i class="fa-solid fa-rocket text-3xl"></i></div>
+                    <h3 class="text-2xl font-semibold mb-3">Getting Started with XRPL + DTCC</h3>
+                    <p class="text-gray-600 dark:text-gray-400 mb-6">Setup, RLUSD trustlines, and first steps connecting payments to Ripple Prime flows.</p>
+                    <a href="#" class="text-blue-600 font-medium flex items-center gap-2">Read Guide →</a>
+                </div>
+
+                <!-- Guide 2 -->
+                <div class="bg-gray-50 dark:bg-slate-800 rounded-3xl p-8 card-hover">
+                    <div class="text-blue-600 mb-4"><i class="fa-solid fa-arrows-rotate text-3xl"></i></div>
+                    <h3 class="text-2xl font-semibold mb-3">Collateral Optimization</h3>
+                    <p class="text-gray-600 dark:text-gray-400 mb-6">Simulate margin calls and rebalance between DTCC-cleared assets and XRPL AMM.</p>
+                    <a href="#" class="text-blue-600 font-medium flex items-center gap-2">Read Guide →</a>
+                </div>
+
+                <!-- Guide 3 -->
+                <div class="bg-gray-50 dark:bg-slate-800 rounded-3xl p-8 card-hover">
+                    <div class="text-blue-600 mb-4"><i class="fa-solid fa-link text-3xl"></i></div>
+                    <h3 class="text-2xl font-semibold mb-3">Chainlink CCIP + XRPL</h3>
+                    <p class="text-gray-600 dark:text-gray-400 mb-6">Secure oracles & cross-chain patterns for DTCC tokenized assets.</p>
+                    <a href="#" class="text-blue-600 font-medium flex items-center gap-2">Read Guide →</a>
+                </div>
+            </div>
+
+            <div class="text-center mt-12">
+                <a href="https://github.com/yourusername/xrpl-dtcc-bridge-hub/tree/main/docs/guides" target="_blank" class="inline-flex items-center gap-3 text-lg font-medium text-blue-600 hover:text-blue-700">
+                    View all 8+ guides on GitHub <span class="text-2xl">→</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Live Demo / Tool -->
+    <section class="py-20 bg-gray-100 dark:bg-slate-950">
+        <div class="max-w-4xl mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-4">Try the Collateral Simulator</h2>
+            <p class="text-center text-gray-600 dark:text-gray-400 mb-10">See how much capital you can free up using XRPL + DTCC flows</p>
+
+            <div class="bg-white dark:bg-slate-900 rounded-3xl p-10 shadow-xl">
+                <div class="grid md:grid-cols-2 gap-10">
+                    <div>
+                        <label class="block text-sm font-medium mb-2">DTCC Asset Value (USD)</label>
+                        <input id="assetValue" type="number" value="1000000" class="w-full p-4 rounded-2xl border dark:bg-slate-800 text-2xl font-mono">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Margin Requirement</label>
+                        <input id="margin" type="range" min="5" max="50" value="15" class="w-full accent-blue-600">
+                        <div class="text-center text-3xl font-bold mt-2" id="marginValue">15%</div>
+                    </div>
+                </div>
+
+                <button onclick="runSimulation()" class="mt-10 w-full bg-blue-600 hover:bg-blue-700 text-white py-6 rounded-3xl text-xl font-semibold transition">
+                    Simulate XRPL Rebalancing
+                </button>
+
+                <div id="result" class="mt-8 hidden bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-800 rounded-2xl p-8 text-center">
+                    <div class="text-4xl font-bold text-green-600" id="savings"></div>
+                    <p class="mt-3 text-green-700 dark:text-green-400">Capital freed up with XRPL 3-5s settlement</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="py-20 bg-blue-700 text-white">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <h2 class="text-4xl font-bold mb-6">Ready to build institutional-grade XRPL payments?</h2>
+            <p class="text-xl mb-10">Get custom integrations, private simulators, or white-label tools for your business.</p>
+            <a href="mailto:your@email.com" class="inline-block bg-white text-blue-700 px-10 py-5 rounded-3xl font-semibold text-lg hover:bg-blue-50">
+                Contact for Freelance / Custom Work
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-gray-400 py-12">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <p>&copy; 2026 payxrpl.io • Open Source Hub for XRPL × DTCC</p>
+            <p class="text-xs mt-4">Not affiliated with Ripple, DTCC, or Chainlink. For educational & development purposes.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Tailwind script already loaded
+        document.getElementById('margin').addEventListener('input', function() {
+            document.getElementById('marginValue').textContent = this.value + '%';
+        });
+
+        function runSimulation() {
+            const value = parseFloat(document.getElementById('assetValue').value) || 1000000;
+            const margin = parseFloat(document.getElementById('margin').value);
+            const savings = Math.round(value * (margin/100) * 0.35); // 35% efficiency gain example
+
+            const result = document.getElementById('result');
+            document.getElementById('savings').textContent = '$' + savings.toLocaleString();
+            result.classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
