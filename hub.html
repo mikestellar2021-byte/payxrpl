@@ -9,7 +9,6 @@
     <style>
         body { font-family: system-ui, -apple-system, sans-serif; }
         .card-hover:hover { transform: translateY(-8px); }
-        .simulator-result { transition: all 0.4s ease; }
     </style>
 </head>
 <body class="bg-zinc-950 text-white min-h-screen">
@@ -31,9 +30,12 @@
                         <i class="fa-brands fa-github"></i>
                     </a>
                     
+                    <!-- Sprachumschaltung -->
                     <div class="flex gap-1 bg-zinc-800 rounded-3xl p-1">
-                        <button onclick="switchLanguage('de')" id="btn-de" class="px-4 py-1.5 rounded-3xl text-sm font-medium transition bg-emerald-600">🇩🇪</button>
-                        <button onclick="switchLanguage('en')" id="btn-en" class="px-4 py-1.5 rounded-3xl text-sm font-medium transition">🇬🇧</button>
+                        <button onclick="switchLanguage('de')" id="btn-de" 
+                                class="px-4 py-1.5 rounded-3xl text-sm font-medium transition bg-emerald-600">🇩🇪</button>
+                        <button onclick="switchLanguage('en')" id="btn-en" 
+                                class="px-4 py-1.5 rounded-3xl text-sm font-medium transition">🇬🇧</button>
                     </div>
                 </div>
             </div>
@@ -103,6 +105,7 @@
             <h3 class="text-2xl font-semibold mb-6 flex items-center gap-3">
                 <span class="text-3xl">📊</span> <span id="sim-title">Collateral Rebalancer Simulator</span>
             </h3>
+            <!-- Simulator Inhalt bleibt gleich -->
             <div class="grid md:grid-cols-2 gap-8">
                 <div>
                     <label class="block text-zinc-400 mb-2">DTCC Asset Wert (USD)</label>
