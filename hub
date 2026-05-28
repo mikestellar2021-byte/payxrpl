@@ -34,7 +34,7 @@
                 <a href="/" class="hover:text-blue-600">Home</a>
                 <a href="/create" class="hover:text-blue-600">Create Invoice</a>
                 <a href="/hub" class="text-blue-600 font-semibold">DTCC × XRPL Hub</a>
-                <a href="https://github.com/yourusername/xrpl-dtcc-bridge-hub" target="_blank" class="hover:text-blue-600 flex items-center gap-1">
+                <a href="https://github.com/mikestellar2021-byte/xrpl-dtcc-bridge-hub" target="_blank" class="hover:text-blue-600 flex items-center gap-1">
                     <i class="fa-brands fa-github"></i> GitHub
                 </a>
             </div>
