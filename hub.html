@@ -47,9 +47,9 @@
             </div>
         </div>
 
-        <!-- Prominenter Disclaimer -->
+        <!-- DISCLAIMER -->
         <div class="bg-zinc-900 border border-amber-500/30 rounded-2xl p-5 mb-10 text-center">
-            <p class="text-amber-400 font-bold text-base">
+            <p id="disclaimer-text" class="text-amber-400 font-bold text-base">
                 ⚠️ Dies ist ein Community & Bildungsprojekt • Nicht offiziell mit DTCC oder Ripple verbunden
             </p>
         </div>
@@ -118,90 +118,4 @@
                 Simulation starten
             </button>
 
-            <div id="simResult" class="hidden mt-8 bg-emerald-900/30 border border-emerald-500 rounded-3xl p-8 text-center">
-                <p id="sim-result-text" class="text-emerald-400 text-sm mb-2">Mögliche Einsparung</p>
-                <div id="savings" class="text-5xl font-bold text-emerald-400"></div>
-            </div>
-        </div>
-
-        <!-- GitHub Button -->
-        <div class="text-center">
-            <a href="https://github.com/mikestellar2021-byte/xrpl-dtcc-bridge-hub" target="_blank" 
-               class="inline-flex items-center gap-3 bg-white text-black font-semibold px-10 py-6 rounded-3xl text-lg hover:bg-emerald-400 transition">
-                <i class="fa-brands fa-github text-3xl"></i>
-                <span id="github-btn-text">Vollständiges Hub auf GitHub öffnen</span>
-            </a>
-        </div>
-    </div>
-
-    <script>
-        const translations = {
-            de: {
-                subtitle: "DTCC × XRPL Hub",
-                description: "Praktische Guides, Code-Beispiele und Tools für die Verbindung von XRPL mit DTCC und Ripple Prime (2026)",
-                card1: "Getting Started",
-                card1text: "XRPL + Ripple Prime (NSCC 0443) Grundlagen, Setup und erste Schritte.",
-                card2: "Collateral Optimization",
-                card2text: "Kapital effizienter nutzen durch XRPL AMM und DTCC-cleared Assets.",
-                card3: "Chainlink CCIP Integration",
-                card3text: "Sichere Oracles und Cross-Chain Verbindungen zu tokenized DTCC Assets.",
-                card4: "Alle Guides & Code",
-                card4text: "Vollständiges Open-Source Repository mit Beispielen und Simulatoren.",
-                simTitle: "Collateral Rebalancer Simulator",
-                simResultText: "Mögliche Einsparung mit XRPL + DTCC",
-                githubBtn: "Vollständiges Hub auf GitHub öffnen"
-            },
-            en: {
-                subtitle: "DTCC × XRPL Hub",
-                description: "Practical guides, code samples and tools for connecting XRPL with DTCC and Ripple Prime (2026)",
-                card1: "Getting Started",
-                card1text: "XRPL + Ripple Prime (NSCC 0443) basics, setup and first steps.",
-                card2: "Collateral Optimization",
-                card2text: "Use capital more efficiently with XRPL AMM and DTCC-cleared assets.",
-                card3: "Chainlink CCIP Integration",
-                card3text: "Secure oracles and cross-chain connections to tokenized DTCC assets.",
-                card4: "All Guides & Code",
-                card4text: "Full open source repository with examples and simulators.",
-                simTitle: "Collateral Rebalancer Simulator",
-                simResultText: "Potential savings with XRPL + DTCC",
-                githubBtn: "Open full Hub on GitHub"
-            }
-        };
-
-        function switchLanguage(lang) {
-            document.getElementById("hub-subtitle").textContent = translations[lang].subtitle;
-            document.getElementById("hub-description").textContent = translations[lang].description;
-            
-            document.getElementById("card1-title").textContent = translations[lang].card1;
-            document.getElementById("card1-text").textContent = translations[lang].card1text;
-            document.getElementById("card2-title").textContent = translations[lang].card2;
-            document.getElementById("card2-text").textContent = translations[lang].card2text;
-            document.getElementById("card3-title").textContent = translations[lang].card3;
-            document.getElementById("card3-text").textContent = translations[lang].card3text;
-            document.getElementById("card4-title").textContent = translations[lang].card4;
-            document.getElementById("card4-text").textContent = translations[lang].card4text;
-
-            document.getElementById("sim-title").textContent = translations[lang].simTitle;
-            document.getElementById("sim-result-text").textContent = translations[lang].simResultText;
-            document.getElementById("github-btn-text").textContent = translations[lang].githubBtn;
-
-            document.getElementById("btn-de").classList.toggle("bg-emerald-600", lang === "de");
-            document.getElementById("btn-en").classList.toggle("bg-emerald-600", lang === "en");
-        }
-
-        function runSimulator() {
-            const value = parseFloat(document.getElementById('assetValue').value) || 1000000;
-            const margin = parseFloat(document.getElementById('margin').value);
-            const savings = Math.round(value * (margin / 100) * 0.38);
-            document.getElementById('savings').textContent = '$' + savings.toLocaleString('de-DE');
-            document.getElementById('simResult').classList.remove('hidden');
-        }
-
-        document.getElementById('margin').addEventListener('input', function() {
-            document.getElementById('marginValue').textContent = this.value + '%';
-        });
-
-        window.onload = () => switchLanguage('de');
-    </script>
-</body>
-</html>
+            <div id="simResult" class="hidden mt-8 bg-emerald-900/30 border border-emerald-500
