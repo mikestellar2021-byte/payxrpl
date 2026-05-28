@@ -1,22 +1,29 @@
 # 02 - Collateral Optimization
 
 ## Warum ist das wichtig?
-Bei klassischem DTCC-Clearing musst du viel Kapital als Margin hinterlegen. Mit XRPL kannst du deutlich effizienter arbeiten.
+Bei klassischem DTCC-Clearing musst du hohe Margins hinterlegen. Mit XRPL kannst du Kapital deutlich effizienter einsetzen.
 
-## Vorteile der XRPL-Lösung
-- Settlement in 3–5 Sekunden (statt T+1/T+2)
-- Automatisches Rebalancing über AMM
-- RLUSD als hochliquides Collateral
-- Bis zu 30–50 % weniger gebundenes Kapital
+## Kernvorteile
+- Settlement in **3–5 Sekunden** statt T+1/T+2
+- Automatisches Rebalancing über XRPL AMM (XLS-30)
+- RLUSD als hochliquides und stabiles Collateral
+- Reduzierung des gebundenen Kapitals um **30–50 %**
 
 ## Praktische Umsetzung
-- Nutze XRPL Payment Channels oder Escrow
-- RLUSD + XRP als Collateral-Pool
-- Automatisierte Margin-Calls via Hooks oder Backend
 
-## Erste Tests empfohlen
-- Simuliere Margin Calls mit dem Simulator auf dieser Seite
-- Teste Rebalancing mit kleinen Beträgen
+### Technische Möglichkeiten
+- Escrow + Payment Channels für atomic transfers
+- AMM Liquidity Pools für dynamisches Rebalancing
+- Hooks oder Backend für automatisierte Margin Calls
+- Multi-Purpose Tokens (MPT) für permissioned Assets
 
-## Nächster Schritt
-→ [Chainlink CCIP Integration](./03-chainlink-ccip.md)
+### Beispiel-Flow
+1. Tokenisierte Assets von DTCC kommen herein
+2. RLUSD/XRP Pool auf XRPL als Collateral
+3. Automatisches Rebalancing bei Margin-Änderungen
+4. Freisetzung von überschüssigem Kapital
+
+## Erwartete Einsparung
+Bei 1 Mio. USD Collateral und 15% Margin: ca. **40.000–60.000 USD** weniger gebundenes Kapital.
+
+**Nächster Guide:** [Chainlink CCIP Integration](./03-chainlink-ccip.md)
